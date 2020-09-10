@@ -1,0 +1,6 @@
+J:\C# Programming\RaceSimulator\Controller\bin\Debug\netcoreapp2.0\Controller.deps.json
+J:\C# Programming\RaceSimulator\Controller\bin\Debug\netcoreapp2.0\Controller.dll
+J:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.csprojAssemblyReference.cache
+J:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.csproj.CoreCompileInputs.cache
+J:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.AssemblyInfoInputs.cache
+J:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.AssemblyInfo.cs

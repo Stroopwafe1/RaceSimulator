@@ -1,0 +1,193 @@
+{
+  "format": 1,
+  "restore": {
+    "J:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\RaceSimulatorConsole.csproj": {}
+  },
+  "projects": {
+    "J:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "J:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj",
+        "projectName": "Controller",
+        "projectPath": "J:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj",
+        "packagesPath": "C:\\Users\\vince\\.nuget\\packages\\",
+        "outputPath": "J:\\C# Programming\\RaceSimulator\\Controller\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\vince\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.0": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
+        "projectName": "Model",
+        "projectPath": "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
+        "packagesPath": "C:\\Users\\vince\\.nuget\\packages\\",
+        "outputPath": "J:\\C# Programming\\RaceSimulator\\Model\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\vince\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.0": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "J:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\RaceSimulatorConsole.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "J:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\RaceSimulatorConsole.csproj",
+        "projectName": "RaceSimulatorConsole",
+        "projectPath": "J:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\RaceSimulatorConsole.csproj",
+        "packagesPath": "C:\\Users\\vince\\.nuget\\packages\\",
+        "outputPath": "J:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\vince\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.0": {
+            "projectReferences": {
+              "J:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj": {
+                "projectPath": "J:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj"
+              },
+              "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {
+                "projectPath": "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.0": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.0, )",
+              "autoReferenced": true
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.12.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

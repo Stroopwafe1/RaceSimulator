@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "f6sAr7gd0iqZpdHPmJ4jWMgy5pC/+SXtV8UkWtMFzw1YWMgEUR/CDZ+EhZ8ixWtxjtkoPSZAJPJ5tqBZlZJkig==",
+  "success": true,
+  "projectFilePath": "J:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\RaceSimulatorConsole.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\vince\\.nuget\\packages\\microsoft.netcore.app\\2.0.0\\microsoft.netcore.app.2.0.0.nupkg.sha512",
+    "C:\\Users\\vince\\.nuget\\packages\\microsoft.netcore.dotnetapphost\\2.0.0\\microsoft.netcore.dotnetapphost.2.0.0.nupkg.sha512",
+    "C:\\Users\\vince\\.nuget\\packages\\microsoft.netcore.dotnethostpolicy\\2.0.0\\microsoft.netcore.dotnethostpolicy.2.0.0.nupkg.sha512",
+    "C:\\Users\\vince\\.nuget\\packages\\microsoft.netcore.dotnethostresolver\\2.0.0\\microsoft.netcore.dotnethostresolver.2.0.0.nupkg.sha512",
+    "C:\\Users\\vince\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+    "C:\\Users\\vince\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
+    "C:\\Users\\vince\\.nuget\\packages\\nunit\\3.12.0\\nunit.3.12.0.nupkg.sha512"
+  ],
+  "logs": []
+}
