@@ -215,6 +215,9 @@
       "Controller/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
+        "dependencies": {
+          "Model": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Controller.dll": {}
         },
@@ -754,21 +757,17 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vince\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\vince\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "J:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\RaceSimulatorConsole.csproj",
+      "projectUniqueName": "D:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\RaceSimulatorConsole.csproj",
       "projectName": "RaceSimulatorConsole",
-      "projectPath": "J:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\RaceSimulatorConsole.csproj",
+      "projectPath": "D:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\RaceSimulatorConsole.csproj",
       "packagesPath": "C:\\Users\\vince\\.nuget\\packages\\",
-      "outputPath": "J:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\obj\\",
+      "outputPath": "D:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\vince\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -783,11 +782,11 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "J:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj": {
-              "projectPath": "J:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj"
+            "D:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj": {
+              "projectPath": "D:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj"
             },
-            "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {
-              "projectPath": "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj"
+            "D:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {
+              "projectPath": "D:\\C# Programming\\RaceSimulator\\Model\\Model.csproj"
             }
           }
         }

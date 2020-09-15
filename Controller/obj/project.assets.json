@@ -196,6 +196,16 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "Model/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Model.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Model.dll": {}
+        }
       }
     }
   },
@@ -668,29 +678,31 @@
         "netstandard.library.2.0.0.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "Model/1.0.0": {
+      "type": "project",
+      "path": "../Model/Model.csproj",
+      "msbuildProject": "../Model/Model.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
-      "Microsoft.NETCore.App >= 2.0.0"
+      "Microsoft.NETCore.App >= 2.0.0",
+      "Model >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vince\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\vince\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "J:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj",
+      "projectUniqueName": "D:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj",
       "projectName": "Controller",
-      "projectPath": "J:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj",
+      "projectPath": "D:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj",
       "packagesPath": "C:\\Users\\vince\\.nuget\\packages\\",
-      "outputPath": "J:\\C# Programming\\RaceSimulator\\Controller\\obj\\",
+      "outputPath": "D:\\C# Programming\\RaceSimulator\\Controller\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\vince\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -704,7 +716,11 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {
+              "projectPath": "D:\\C# Programming\\RaceSimulator\\Model\\Model.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
