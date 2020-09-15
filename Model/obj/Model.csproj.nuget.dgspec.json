@@ -1,21 +1,18 @@
 {
   "format": 1,
   "restore": {
-    "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {}
+    "D:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {}
   },
   "projects": {
-    "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {
+    "D:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
+        "projectUniqueName": "D:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
         "projectName": "Model",
-        "projectPath": "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
+        "projectPath": "D:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
         "packagesPath": "C:\\Users\\vince\\.nuget\\packages\\",
-        "outputPath": "J:\\C# Programming\\RaceSimulator\\Model\\obj\\",
+        "outputPath": "D:\\C# Programming\\RaceSimulator\\Model\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
           "C:\\Users\\vince\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
