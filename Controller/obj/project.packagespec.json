@@ -18,7 +18,11 @@
     },
     "frameworks": {
       "netcoreapp2.0": {
-        "projectReferences": {}
+        "projectReferences": {
+          "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {
+            "projectPath": "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj"
+          }
+        }
       }
     },
     "warningProperties": {

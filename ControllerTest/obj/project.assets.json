@@ -4662,19 +4662,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vince\\.nuget\\packages\\": {}
+    "C:\\Users\\Lilith\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\C# Programming\\RaceSimulator\\ControllerTest\\ControllerTest.csproj",
+      "projectUniqueName": "J:\\C# Programming\\RaceSimulator\\ControllerTest\\ControllerTest.csproj",
       "projectName": "ControllerTest",
-      "projectPath": "D:\\C# Programming\\RaceSimulator\\ControllerTest\\ControllerTest.csproj",
-      "packagesPath": "C:\\Users\\vince\\.nuget\\packages\\",
-      "outputPath": "D:\\C# Programming\\RaceSimulator\\ControllerTest\\obj\\",
+      "projectPath": "J:\\C# Programming\\RaceSimulator\\ControllerTest\\ControllerTest.csproj",
+      "packagesPath": "C:\\Users\\Lilith\\.nuget\\packages\\",
+      "outputPath": "J:\\C# Programming\\RaceSimulator\\ControllerTest\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\vince\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Lilith\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4687,8 +4691,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj": {
-              "projectPath": "D:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj"
+            "J:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj": {
+              "projectPath": "J:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj"
             }
           }
         }

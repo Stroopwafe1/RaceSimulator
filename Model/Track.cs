@@ -8,9 +8,9 @@ namespace Model {
 		public string Name { get; set; }
 		public LinkedList<Section> Sections { get; set; }
 
-		public Track(string name, Section[] sections) {
+		public Track(string name, SectionTypes[] sections) {
 			Name = name;
-			Sections = new LinkedList<Section>(sections);
+			Sections = new LinkedList<Section>();
 		}
 	}
 }
