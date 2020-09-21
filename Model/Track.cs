@@ -10,7 +10,17 @@ namespace Model {
 
 		public Track(string name, SectionTypes[] sections) {
 			Name = name;
-			Sections = new LinkedList<Section>();
+			Sections = ConvertSectionTypesToSections(sections);
+		}
+
+		private LinkedList<Section> ConvertSectionTypesToSections(SectionTypes[] sectionTypes) {
+			LinkedList<Section> returnValue = new LinkedList<Section>();
+			foreach (SectionTypes sectionType in sectionTypes) {
+				Section section = new Section(sectionType);
+				returnValue.AddLast(section);
+			}
+			
+			return returnValue;
 		}
 	}
 }
