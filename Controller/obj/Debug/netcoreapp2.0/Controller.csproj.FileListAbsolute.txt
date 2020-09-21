@@ -19,3 +19,6 @@ D:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.cs
 D:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.csproj.CopyComplete
 D:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.dll
 D:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.pdb
+J:\C# Programming\RaceSimulator\Controller\bin\Debug\netcoreapp2.0\Model.dll
+J:\C# Programming\RaceSimulator\Controller\bin\Debug\netcoreapp2.0\Model.pdb
+J:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.csproj.CopyComplete
