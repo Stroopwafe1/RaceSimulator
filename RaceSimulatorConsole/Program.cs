@@ -7,7 +7,8 @@ namespace RaceSimulator {
 		static void Main(string[] args) {
 			Data.Initialise(new Competition());
 			Data.NextRace();
-			Console.WriteLine($"Name of current track: {Data.CurrentRace.Track.Name}");
+			Visualiser.DrawTrack(Data.CurrentRace.Track);
+			Console.ReadLine();
 		}
 	}
 }
