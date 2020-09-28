@@ -16,10 +16,12 @@ namespace Controller {
 		}
 
 		static void AddParticipants() {
-			Competition.Participants.Add(new Driver());
-			Competition.Participants.Add(new Driver());
-			Competition.Participants.Add(new Driver());
-			Competition.Participants.Add(new Driver());
+			Competition.Participants.Add(new Driver() {Name = "Bob"});
+			Competition.Participants.Add(new Driver() {Name = "Kelly"});
+			Competition.Participants.Add(new Driver() {Name = "Jerry"});
+			Competition.Participants.Add(new Driver() {Name = "Sasha"});
+			Competition.Participants.Add(new Driver() {Name = "Rythian"});
+			Competition.Participants.Add(new Driver() {Name = "Zoey"});
 		}
 
 		static void AddTracks() {

@@ -7,6 +7,7 @@ namespace RaceSimulator {
 		static void Main(string[] args) {
 			Data.Initialise(new Competition());
 			Data.NextRace();
+			Visualiser.Initialise();
 			Visualiser.DrawTrack(Data.CurrentRace.Track);
 			Console.ReadLine();
 		}
