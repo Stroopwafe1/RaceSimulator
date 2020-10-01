@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
+using System.Timers;
 
 namespace Controller {
 	public class Race {
@@ -12,6 +13,8 @@ namespace Controller {
 		public DateTime StartTime { get; set; }
 		private Random random;
 		private Dictionary<Section, SectionData> positions;
+		private Timer _timer;
+
 		public SectionData GetSectionData(Section section) {
 			if(positions.TryGetValue(section, out SectionData returnValue))
 				return returnValue;
@@ -25,7 +28,17 @@ namespace Controller {
 			Participants = participants;
 			random = new Random(DateTime.Now.Millisecond);
 			positions = new Dictionary<Section, SectionData>();
+			_timer = new Timer(500);
+			_timer.Elapsed += OnTimedEvent;
 			PlaceParticipantsOnTrack();
+		}
+
+		private void OnTimedEvent(object sender, ElapsedEventArgs e) {
+			Console.WriteLine("Elapsed");
+		}
+
+		private void Start() {
+			_timer.Start();
 		}
 
 		public void RandomiseEquipment() {
