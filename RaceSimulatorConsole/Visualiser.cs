@@ -21,16 +21,16 @@ namespace RaceSimulator {
 		//private static readonly string[] _straightHorizontal = { "____", "    ", "    ", "‾‾‾‾" };
 		//private static readonly string[] _straightVertical = { "|  |", "|  |", "|  |", "|  |" };
 
-		private static readonly string[] _finishHorizontal = { "════", "  ░ ", "  ░ ", "════" };
-		private static readonly string[] _finishVertical = { "║  ║", "║  ║", "║≡≡║", "║  ║" };
-		private static readonly string[] _startHorizontal = { "════", "  ▄ ", " ▀  ", "════" };
-		private static readonly string[] _startVertical = { "║  ║", "║▄ ║", "║ ▄║", "║  ║" };
-		private static readonly string[] _cornerSW = { "═╗  ", "  \\╗", "\\  ║", "║  ║" };
-		private static readonly string[] _cornerSE = { "  ╔═", "╔/  ", "║  /", "║  ║" };
-		private static readonly string[] _cornerNW = { "║  ║", "/  ║", "  /╝", "═╝  " };
-		private static readonly string[] _cornerNE = { "║  ║", "║  \\", "╚\\  ", "  ╚═" };
-		private static readonly string[] _straightHorizontal = { "════", "    ", "    ", "════" };
-		private static readonly string[] _straightVertical = { "║  ║", "║  ║", "║  ║", "║  ║" };
+		private static readonly string[] _finishHorizontal = { "════", " 1░ ", "2 ░ ", "════" };
+		private static readonly string[] _finishVertical = { "║ 1║", "║2 ║", "║≡≡║", "║  ║" };
+		private static readonly string[] _startHorizontal = { "════", " 1▄ ", "2▀  ", "════" };
+		private static readonly string[] _startVertical = { "║  ║", "║▄1║", "║2▄║", "║  ║" };
+		private static readonly string[] _cornerSW = { "═╗  ", " 1\\╗", "\\2 ║", "║  ║" };
+		private static readonly string[] _cornerSE = { "  ╔═", "╔/2 ", "║ 1/", "║  ║" };
+		private static readonly string[] _cornerNW = { "║  ║", "/1 ║", " 2/╝", "═╝  " };
+		private static readonly string[] _cornerNE = { "║  ║", "║ 1\\", "╚\\2 ", "  ╚═" };
+		private static readonly string[] _straightHorizontal = { "════", " 1  ", "  2 ", "════" };
+		private static readonly string[] _straightVertical = { "║  ║", "║1 ║", "║ 2║", "║  ║" };
 		private static readonly string[] _empty = {"    ", "    ", "    ", "    "};
 		
 		/*
@@ -45,41 +45,41 @@ namespace RaceSimulator {
 		public static void Initialise() {
 			compass = 1;
 			GridSquares = new List<GridSquare>();
+			Data.CurrentRace.DriversChanged += OnDriversChanged;
 		}
 
+		public static void OnDriversChanged(object sender, EventArgs e) {
+			DriversChangedEventArgs e1 = (DriversChangedEventArgs) e;
+			DrawTrack(e1.Track);
+		}
+		
 		public static void DrawTrack(Track track) {
-			// foreach (Section trackSection in track.Sections) {
-			// 	DrawSection(trackSection.SectionType);
-			// }
+			Console.Clear();
+			Console.SetCursorPosition(0, 0);
 			CalculateGrid(track.Sections);
-			Console.WriteLine($"Lowest values in the grid: X: {GridSquare.LowestX}, Y: {GridSquare.LowestY}");
-			MoveGrid(Math.Abs(GridSquare.LowestX) + 1, Math.Abs(GridSquare.LowestY));
+			MoveGrid(Math.Abs(GridSquare.LowestX), Math.Abs(GridSquare.LowestY));
 			GridSquares = GridSquares.OrderBy(_square => _square.Y).ToList();
-			GridSquares.ForEach(_square => _square.Section = InsertParticipants(_square.Section, _square.SectionData.Left, _square.SectionData.Right));
 			int maxX = GridSquares.Max(_square => _square.X);
 			int maxY = GridSquares.Max(_square => _square.Y);
 			for (int y = 0; y <= maxY; y++) {
 				for (int internalY = 0; internalY < 4; internalY++) {
 					for (int x = 0; x <= maxX; x++) {
 						GridSquare square = GetGridSquare(x, y);
-						Console.Write(square == null ? _empty[internalY] : square.Section[internalY]);
+						Console.Write(square == null ? _empty[internalY] : InsertParticipants(square.Section[internalY], square.SectionData.Left, square.SectionData.Right));
 					}
 					Console.WriteLine();
 				}
 			}
 		}
 
-		public static string[] InsertParticipants(string[] track, IParticipant leftParticipant, IParticipant rightParticipant) {
+		public static string InsertParticipants(string track, IParticipant leftParticipant, IParticipant rightParticipant) {
 			char initial1 = leftParticipant?.Name[0] ?? ' ';
 			char initial2 = rightParticipant?.Name[0] ?? ' ';
-			string[] returnValue = new [] {
-				track[0],
-				track[1].Replace('▄', initial1),
-				track[2].Replace('▀', initial2),
-				track[3]
-			};
+			string returnValue = track.Replace('1', initial1);
+			returnValue = returnValue.Replace('2', initial2);
 			return returnValue;
 		}
+
 
 		private static GridSquare GetGridSquare(int x, int y) {
 			GridSquare square = GridSquares.Find(_square => _square.X == x && _square.Y == y);
@@ -90,10 +90,10 @@ namespace RaceSimulator {
 			Race race = Data.CurrentRace;
 			int comp = compass;
 			int x = 0, y = 0;
+			GridSquares?.Clear();
 			foreach (Section section in sections) {
 				SectionTypes type = section.SectionType;
 				SectionData data = race.GetSectionData(section);
-				Console.WriteLine($"Type: {type} [X,Y]: [{x},{y}]");
 				switch (type) {
 					case SectionTypes.StartGrid:
 						if (comp == 1 || comp == 3)
