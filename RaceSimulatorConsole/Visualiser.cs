@@ -54,11 +54,8 @@ namespace RaceSimulator {
 		}
 		
 		public static void DrawTrack(Track track) {
-<<<<<<< HEAD
 			Console.Clear();
 			Console.SetCursorPosition(0, 0);
-=======
->>>>>>> master
 			CalculateGrid(track.Sections);
 			MoveGrid(Math.Abs(GridSquare.LowestX), Math.Abs(GridSquare.LowestY));
 			GridSquares = GridSquares.OrderBy(_square => _square.Y).ToList();
