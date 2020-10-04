@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Controller;
 using Model;
 
@@ -9,7 +10,12 @@ namespace RaceSimulator {
 			Data.NextRace();
 			Visualiser.Initialise();
 			Visualiser.DrawTrack(Data.CurrentRace.Track);
-			Console.ReadLine();
+			//Console.ReadLine();
+
+			for(; ; )
+				{
+				Thread.Sleep(100);
+			}
 		}
 	}
 }
