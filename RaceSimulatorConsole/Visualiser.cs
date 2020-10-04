@@ -45,12 +45,19 @@ namespace RaceSimulator {
 		public static void Initialise() {
 			compass = 1;
 			GridSquares = new List<GridSquare>();
+			Data.CurrentRace.DriversChanged += OnDriversChanged;
 		}
 
+		public static void OnDriversChanged(object sender, EventArgs e) {
+			DriversChangedEventArgs e1 = (DriversChangedEventArgs) e;
+			DrawTrack(e1.Track);
+		}
+		
 		public static void DrawTrack(Track track) {
+			Console.Clear();
+			Console.SetCursorPosition(0, 0);
 			CalculateGrid(track.Sections);
-			Console.WriteLine($"Lowest values in the grid: X: {GridSquare.LowestX}, Y: {GridSquare.LowestY}");
-			MoveGrid(Math.Abs(GridSquare.LowestX) + 1, Math.Abs(GridSquare.LowestY));
+			MoveGrid(Math.Abs(GridSquare.LowestX), Math.Abs(GridSquare.LowestY));
 			GridSquares = GridSquares.OrderBy(_square => _square.Y).ToList();
 			int maxX = GridSquares.Max(_square => _square.X);
 			int maxY = GridSquares.Max(_square => _square.Y);
@@ -73,6 +80,7 @@ namespace RaceSimulator {
 			return returnValue;
 		}
 
+
 		private static GridSquare GetGridSquare(int x, int y) {
 			GridSquare square = GridSquares.Find(_square => _square.X == x && _square.Y == y);
 			return square;
@@ -82,10 +90,10 @@ namespace RaceSimulator {
 			Race race = Data.CurrentRace;
 			int comp = compass;
 			int x = 0, y = 0;
+			GridSquares?.Clear();
 			foreach (Section section in sections) {
 				SectionTypes type = section.SectionType;
 				SectionData data = race.GetSectionData(section);
-				Console.WriteLine($"Type: {type} [X,Y]: [{x},{y}]");
 				switch (type) {
 					case SectionTypes.StartGrid:
 						if (comp == 1 || comp == 3)
