@@ -2,3 +2,5 @@
 .idea/**
 .vs/**
 .vs/RaceSimulator/v16/.suo
+*/bin/**
+*/obj/**
