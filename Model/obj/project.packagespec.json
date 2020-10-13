@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
+    "projectUniqueName": "S:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
     "projectName": "Model",
-    "projectPath": "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
-    "outputPath": "J:\\C# Programming\\RaceSimulator\\Model\\obj\\",
+    "projectPath": "S:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
+    "outputPath": "S:\\C# Programming\\RaceSimulator\\Model\\obj\\",
     "projectStyle": "PackageReference",
     "fallbackFolders": [
       "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

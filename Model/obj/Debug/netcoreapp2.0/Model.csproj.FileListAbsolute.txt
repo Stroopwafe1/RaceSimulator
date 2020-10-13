@@ -16,3 +16,12 @@ D:\C# Programming\RaceSimulator\Model\obj\Debug\netcoreapp2.0\Model.AssemblyInfo
 D:\C# Programming\RaceSimulator\Model\obj\Debug\netcoreapp2.0\Model.csproj.CoreCompileInputs.cache
 D:\C# Programming\RaceSimulator\Model\obj\Debug\netcoreapp2.0\Model.dll
 D:\C# Programming\RaceSimulator\Model\obj\Debug\netcoreapp2.0\Model.pdb
+S:\C# Programming\RaceSimulator\Model\bin\Debug\netcoreapp2.0\Model.deps.json
+S:\C# Programming\RaceSimulator\Model\bin\Debug\netcoreapp2.0\Model.dll
+S:\C# Programming\RaceSimulator\Model\bin\Debug\netcoreapp2.0\Model.pdb
+S:\C# Programming\RaceSimulator\Model\obj\Debug\netcoreapp2.0\Model.csprojAssemblyReference.cache
+S:\C# Programming\RaceSimulator\Model\obj\Debug\netcoreapp2.0\Model.AssemblyInfoInputs.cache
+S:\C# Programming\RaceSimulator\Model\obj\Debug\netcoreapp2.0\Model.AssemblyInfo.cs
+S:\C# Programming\RaceSimulator\Model\obj\Debug\netcoreapp2.0\Model.csproj.CoreCompileInputs.cache
+S:\C# Programming\RaceSimulator\Model\obj\Debug\netcoreapp2.0\Model.dll
+S:\C# Programming\RaceSimulator\Model\obj\Debug\netcoreapp2.0\Model.pdb
