@@ -45,16 +45,30 @@ namespace RaceSimulator {
 		public static void Initialise() {
 			compass = 1;
 			GridSquares = new List<GridSquare>();
+			int width = 1024;
+			int height = 720;
+			if (width > Console.LargestWindowWidth)
+				width = Console.WindowWidth;
+			if (height > Console.LargestWindowHeight)
+				height = Console.WindowHeight;
+			Console.SetWindowSize(width, height);
 			Data.CurrentRace.DriversChanged += OnDriversChanged;
+			Race.RaceStarted += OnRaceStarted;
 		}
 
 		public static void OnDriversChanged(object sender, EventArgs e) {
 			DriversChangedEventArgs e1 = (DriversChangedEventArgs) e;
 			DrawTrack(e1.Track);
 		}
+
+		public static void OnRaceStarted(object sender, EventArgs e) {
+			RaceStartedEventArgs e1 = (RaceStartedEventArgs)e;
+			e1.Race.DriversChanged += OnDriversChanged;
+			Console.Clear();
+			DrawTrack(e1.Race.Track);
+		}
 		
 		public static void DrawTrack(Track track) {
-			Console.Clear();
 			Console.SetCursorPosition(0, 0);
 			CalculateGrid(track.Sections);
 			MoveGrid(Math.Abs(GridSquare.LowestX), Math.Abs(GridSquare.LowestY));
@@ -75,6 +89,10 @@ namespace RaceSimulator {
 		public static string InsertParticipants(string track, IParticipant leftParticipant, IParticipant rightParticipant) {
 			char initial1 = leftParticipant?.Name[0] ?? ' ';
 			char initial2 = rightParticipant?.Name[0] ?? ' ';
+			if(leftParticipant != null && leftParticipant.Equipment.IsBroken)
+				initial1 = '☺';
+			if (rightParticipant != null && rightParticipant.Equipment.IsBroken)
+				initial2 = '☻';
 			string returnValue = track.Replace('1', initial1);
 			returnValue = returnValue.Replace('2', initial2);
 			return returnValue;

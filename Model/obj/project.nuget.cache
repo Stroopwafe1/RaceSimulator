@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+ymuN1JYvycyxQKowWOxb18R9C7MbjC3d9TLcW7FExww7j5tnWZmlEviyN9rff5vIF0OmC7f99SIBr+FSPRmBw==",
+  "dgSpecHash": "y5RfbdjBhbyC4rD4CA6IPJ2CxKB6RNQf9dvsaYV4tnf1SSI5ykFtg/MuruA1WtAn4hvdqkXZLvvnqbnEa4j0kw==",
   "success": true,
-  "projectFilePath": "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
+  "projectFilePath": "S:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lilith\\.nuget\\packages\\microsoft.netcore.app\\2.0.0\\microsoft.netcore.app.2.0.0.nupkg.sha512",
     "C:\\Users\\Lilith\\.nuget\\packages\\microsoft.netcore.dotnetapphost\\2.0.0\\microsoft.netcore.dotnetapphost.2.0.0.nupkg.sha512",

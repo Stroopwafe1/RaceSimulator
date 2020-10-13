@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {}
+    "S:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {}
   },
   "projects": {
-    "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {
+    "S:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
+        "projectUniqueName": "S:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
         "projectName": "Model",
-        "projectPath": "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
+        "projectPath": "S:\\C# Programming\\RaceSimulator\\Model\\Model.csproj",
         "packagesPath": "C:\\Users\\Lilith\\.nuget\\packages\\",
-        "outputPath": "J:\\C# Programming\\RaceSimulator\\Model\\obj\\",
+        "outputPath": "S:\\C# Programming\\RaceSimulator\\Model\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

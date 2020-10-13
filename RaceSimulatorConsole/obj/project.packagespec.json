@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "J:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\RaceSimulatorConsole.csproj",
+    "projectUniqueName": "S:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\RaceSimulatorConsole.csproj",
     "projectName": "RaceSimulatorConsole",
-    "projectPath": "J:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\RaceSimulatorConsole.csproj",
-    "outputPath": "J:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\obj\\",
+    "projectPath": "S:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\RaceSimulatorConsole.csproj",
+    "outputPath": "S:\\C# Programming\\RaceSimulator\\RaceSimulatorConsole\\obj\\",
     "projectStyle": "PackageReference",
     "fallbackFolders": [
       "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -19,11 +19,11 @@
     "frameworks": {
       "netcoreapp2.0": {
         "projectReferences": {
-          "J:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj": {
-            "projectPath": "J:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj"
+          "S:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj": {
+            "projectPath": "S:\\C# Programming\\RaceSimulator\\Controller\\Controller.csproj"
           },
-          "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {
-            "projectPath": "J:\\C# Programming\\RaceSimulator\\Model\\Model.csproj"
+          "S:\\C# Programming\\RaceSimulator\\Model\\Model.csproj": {
+            "projectPath": "S:\\C# Programming\\RaceSimulator\\Model\\Model.csproj"
           }
         }
       }

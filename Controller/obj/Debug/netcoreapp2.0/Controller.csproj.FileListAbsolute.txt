@@ -22,3 +22,15 @@ D:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.pd
 J:\C# Programming\RaceSimulator\Controller\bin\Debug\netcoreapp2.0\Model.dll
 J:\C# Programming\RaceSimulator\Controller\bin\Debug\netcoreapp2.0\Model.pdb
 J:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.csproj.CopyComplete
+S:\C# Programming\RaceSimulator\Controller\bin\Debug\netcoreapp2.0\Controller.deps.json
+S:\C# Programming\RaceSimulator\Controller\bin\Debug\netcoreapp2.0\Controller.dll
+S:\C# Programming\RaceSimulator\Controller\bin\Debug\netcoreapp2.0\Controller.pdb
+S:\C# Programming\RaceSimulator\Controller\bin\Debug\netcoreapp2.0\Model.dll
+S:\C# Programming\RaceSimulator\Controller\bin\Debug\netcoreapp2.0\Model.pdb
+S:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.csprojAssemblyReference.cache
+S:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.AssemblyInfoInputs.cache
+S:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.AssemblyInfo.cs
+S:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.csproj.CoreCompileInputs.cache
+S:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.csproj.CopyComplete
+S:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.dll
+S:\C# Programming\RaceSimulator\Controller\obj\Debug\netcoreapp2.0\Controller.pdb
