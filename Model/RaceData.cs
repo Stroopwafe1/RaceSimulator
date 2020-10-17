@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Model {
-    class RaceData<T> {
+    public class RaceData<T> {
 
         private List<T> _list = new List<T>();
 

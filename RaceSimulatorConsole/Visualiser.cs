@@ -109,6 +109,8 @@ namespace RaceSimulator {
 			int comp = compass;
 			int x = 0, y = 0;
 			GridSquares?.Clear();
+			GridSquare.LowestX = 0;
+			GridSquare.LowestY = 0;
 			foreach (Section section in sections) {
 				SectionTypes type = section.SectionType;
 				SectionData data = race.GetSectionData(section);
