@@ -16,8 +16,10 @@ namespace Controller {
 		private Dictionary<Section, SectionData> _positions;
 		private Timer _timer;
 		private Dictionary<int, IParticipant> _ranking;
+		private Dictionary<int, IParticipant> _finalRanking;
 		private const int SECTION_LENGTH = 100;
 		private Dictionary<IParticipant, bool> _finished;
+		private Dictionary<IParticipant, int> _completedLaps;
 
 		public event EventHandler DriversChanged;
 		public event EventHandler RaceFinished;
@@ -37,7 +39,9 @@ namespace Controller {
 			random = new Random(DateTime.Now.Millisecond);
 			_positions = new Dictionary<Section, SectionData>();
 			_ranking = new Dictionary<int, IParticipant>();
+			_finalRanking = new Dictionary<int, IParticipant>();
 			_finished = new Dictionary<IParticipant, bool>();
+			_completedLaps = new Dictionary<IParticipant, int>();
 			_timer = new Timer(500);
 			_timer.Elapsed += OnTimedEvent;
 			InitialiseSectionData();
@@ -98,6 +102,17 @@ namespace Controller {
 			}
 		}
 
+		private void CompleteLap(IParticipant participant){
+			if(!_completedLaps.ContainsKey(participant)) {
+				_completedLaps.Add(participant, 0);
+            }
+            _completedLaps[participant]++;
+        }
+
+		public Dictionary<int, IParticipant> GetFinalRanking() {
+			return _finalRanking;
+        }
+
 		private void MoveParticipants() {
 			bool driversChanged = false;
 			for (int i = 1; i <= _ranking.Count; i++) {
@@ -116,9 +131,10 @@ namespace Controller {
 						var section = GetSectionBySectionData(data);
 						if (section.SectionType == SectionTypes.Finish && !_finished[_ranking[i]]) {
 							//Participant has completed a lap
-							_ranking[i].Points++;
+							CompleteLap(_ranking[i]);
 							_finished[_ranking[i]] = true;
-							if (_ranking[i].Points > 2) {
+							if (_completedLaps[_ranking[i]] > 2) {
+								_finalRanking.Add(_finalRanking.Count + 1, _ranking[i]);
 								data.Left = null;
 								driversChanged = true;
 								continue;
@@ -142,9 +158,10 @@ namespace Controller {
 						var section = GetSectionBySectionData(data);
 						if (section.SectionType == SectionTypes.Finish && !_finished[_ranking[i]]) {
 							//Participant has completed a lap
-							_ranking[i].Points++;
+							CompleteLap(_ranking[i]);
 							_finished[_ranking[i]] = true;
-							if (_ranking[i].Points > 2) {
+							if (_completedLaps[_ranking[i]] > 2) {
+								_finalRanking.Add(_finalRanking.Count + 1, _ranking[i]);
 								data.Right = null;
 								driversChanged = true;
 								continue;
@@ -197,7 +214,7 @@ namespace Controller {
 		}
 
 		public Section GetSectionBySectionData(SectionData data) {
-			Section returnValue = Track.Sections.First(_section => GetSectionData(_section) == data);
+			Section returnValue = Track.Sections.FirstOrDefault(_section => GetSectionData(_section) == data);
 			return returnValue;
 		}
 
