@@ -9,7 +9,10 @@ namespace Model {
 
 		public List<IParticipant> Participants { get; set; }
 		public Queue<Track> Tracks { get; set; }
-		public RaceData<ParticipantPoints> RaceData { get; set; }
+		public RaceData<ParticipantPoints> ParticipantPoints { get; set; }
+		public RaceData<ParticipantTime> ParticipantTime { get; set; }
+		public RaceData<ParticipantsOvertaken> ParticipantsOvertaken { get; set; }
+		public RaceData<ParticipantTimesBrokenDown> ParticpantTimesBrokenDown { get; set; }
 
 		public Track NextTrack() {
 			Track returnTrack = null;
@@ -20,7 +23,10 @@ namespace Model {
 		public Competition() {
 			Participants = new List<IParticipant>();
 			Tracks = new Queue<Track>();
-			RaceData = new RaceData<ParticipantPoints>();
+			ParticipantPoints = new RaceData<ParticipantPoints>();
+			ParticipantTime = new RaceData<ParticipantTime>();
+			ParticipantsOvertaken = new RaceData<ParticipantsOvertaken>();
+			ParticpantTimesBrokenDown = new RaceData<ParticipantTimesBrokenDown>();
 		}
 
 		public void AddPoints(Dictionary<int, IParticipant> finalRanking) {
@@ -47,9 +53,22 @@ namespace Model {
 				}
 				IParticipant participant = Participants.First(p => p.Name == finalRanking[i].Name);
 				participant.Points += points;
-				RaceData.AddToList(new ParticipantPoints() { Name = finalRanking[i].Name, Points = points });
+				ParticipantPoints.AddToList(new ParticipantPoints() { Name = finalRanking[i].Name, Points = points });
 				Debug.WriteLine($"{points} added to Participant {finalRanking[i].Name}, they now have {participant.Points}");
             }
+        }
+
+		public void AddSectionTime(IParticipant participant, TimeSpan time, Section section) {
+			ParticipantTime.AddToList(new ParticipantSectionTime() { Name = participant.Name, Section = section, Time = time });
+        }
+
+		public void AddParticipantOvertaken(IParticipant overtaker, IParticipant overtaken) {
+			Debug.WriteLine($"{overtaken.Name} was overtaken by {overtaker.Name}");
+			ParticipantsOvertaken.AddToList(new ParticipantsOvertaken() { OvertakenName = overtaken.Name, OvertakerName = overtaker.Name });
+        }
+
+		public void AddParticipantBrokenDown(IParticipant participant, int count) {
+			ParticpantTimesBrokenDown.AddToList(new ParticipantTimesBrokenDown() { Name = participant.Name, Count = count });
         }
 	}
 }
