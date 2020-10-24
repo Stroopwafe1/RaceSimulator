@@ -59,16 +59,17 @@ namespace Model {
         }
 
 		public void AddSectionTime(IParticipant participant, TimeSpan time, Section section) {
-			ParticipantTime.AddToList(new ParticipantSectionTime() { Name = participant.Name, Section = section, Time = time });
+			ParticipantTime.AddToList(new ParticipantSectionTime() { Name = participant.Name, Section = section, Time = time, Participant = participant });
         }
 
 		public void AddParticipantOvertaken(IParticipant overtaker, IParticipant overtaken) {
-			Debug.WriteLine($"{overtaken.Name} was overtaken by {overtaker.Name}");
-			ParticipantsOvertaken.AddToList(new ParticipantsOvertaken() { OvertakenName = overtaken.Name, OvertakerName = overtaker.Name });
+			Debug.Write($"{overtaken.Name} was overtaken by {overtaker.Name}! ");
+			ParticipantsOvertaken.AddToList(new ParticipantsOvertaken(overtaker.Name, overtaken.Name) { Participant = overtaker});
+			Debug.WriteLine($"Amount in list: {ParticipantsOvertaken.GetListCount()}");
         }
 
 		public void AddParticipantBrokenDown(IParticipant participant, int count) {
-			ParticpantTimesBrokenDown.AddToList(new ParticipantTimesBrokenDown() { Name = participant.Name, Count = count });
+			ParticpantTimesBrokenDown.AddToList(new ParticipantTimesBrokenDown() { Name = participant.Name, Count = count, Participant = participant });
         }
 	}
 }
