@@ -11,14 +11,20 @@ namespace Model {
         public int Count { get; set; }
         public IParticipant Participant { get; set; }
 
+        public ParticipantsOvertaken(string overtakerName, string overtakenName) {
+            OvertakenName = overtakenName;
+            OvertakerName = overtakerName;
+        }
+
         public void Add(List<IParticipantData> participantData) {
             var overtakenData = participantData.Cast<ParticipantsOvertaken>();
             var participant = overtakenData.FirstOrDefault(data => data.OvertakerName == this.OvertakerName);
             if (participant == null) {
+                this.Count++;
                 participantData.Add(this);
-                return;
+            } else {
+                participant.Count++;
             }
-            participant.Count++;
         }
 
         public string GetBestParticipant(List<IParticipantData> participantData) {

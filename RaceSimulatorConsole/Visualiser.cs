@@ -84,7 +84,15 @@ namespace RaceSimulator {
 					Console.WriteLine();
 				}
 			}
+			DrawScore();
 		}
+
+		public static void DrawScore() {
+			int maxX = GridSquares.Max(_square => _square.X);
+			Console.SetCursorPosition((maxX + 4) * 4, 0);
+			var bestParticipant = Data.Competition.ParticipantsOvertaken.GetBestParticipant();
+			Console.Write($"Best overtaker: {bestParticipant}");
+        }
 
 		public static string InsertParticipants(string track, IParticipant leftParticipant, IParticipant rightParticipant) {
 			char initial1 = leftParticipant?.Name[0] ?? ' ';
