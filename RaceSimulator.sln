@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Controller", "Controller\Controller.csproj", "{BAC35DD9-853A-4127-A6B5-C76A4EB26F8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControllerTest", "ControllerTest\ControllerTest.csproj", "{72A15F2D-B649-4786-AFFA-A947235758A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControllerTest", "ControllerTest\ControllerTest.csproj", "{72A15F2D-B649-4786-AFFA-A947235758A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceSimulatorGUI", "RaceSimulatorGUI\RaceSimulatorGUI.csproj", "{16D7427A-1319-46AD-894A-CB2EA7844905}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{72A15F2D-B649-4786-AFFA-A947235758A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72A15F2D-B649-4786-AFFA-A947235758A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72A15F2D-B649-4786-AFFA-A947235758A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16D7427A-1319-46AD-894A-CB2EA7844905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16D7427A-1319-46AD-894A-CB2EA7844905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16D7427A-1319-46AD-894A-CB2EA7844905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16D7427A-1319-46AD-894A-CB2EA7844905}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
