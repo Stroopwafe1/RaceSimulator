@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RaceSimulatorGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="750" Width="1500">
     <Grid Background="#FF2E2E2E">
-        <Image Margin="400,0,0,-1"/>
+        <Image x:Name="TrackImage" Margin="400,0,0,0"/>
     </Grid>
 </Window>

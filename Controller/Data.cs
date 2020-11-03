@@ -16,12 +16,12 @@ namespace Controller {
 		}
 
 		static void AddParticipants() {
-			Competition.Participants.Add(new Driver("Bob", new Car()));
-			Competition.Participants.Add(new Driver("Kelly", new Car()));
-			Competition.Participants.Add(new Driver("Jerry", new Car()));
-			Competition.Participants.Add(new Driver("Sasha", new Car()));
-			Competition.Participants.Add(new Driver("Rythian", new Car()));
-			Competition.Participants.Add(new Driver("Zoey", new Car()));
+			Competition.Participants.Add(new Driver("Bob", new Car()) { TeamColour = TeamColours.Red });
+			//Competition.Participants.Add(new Driver("Kelly", new Car()));
+			Competition.Participants.Add(new Driver("Jerry", new Car()) { TeamColour = TeamColours.Blue});
+			Competition.Participants.Add(new Driver("Sasha", new Car()) { TeamColour = TeamColours.Green });
+			Competition.Participants.Add(new Driver("Rythian", new Car()) { TeamColour = TeamColours.Grey });
+			Competition.Participants.Add(new Driver("Zoey", new Car()) { TeamColour = TeamColours.Yellow });
 		}
 
 		static void AddTracks() {

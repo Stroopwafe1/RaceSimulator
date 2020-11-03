@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Reflection.PortableExecutable;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Timers;
 
 namespace Controller {
@@ -19,11 +16,15 @@ namespace Controller {
 		private Dictionary<int, IParticipant> _ranking;
 		private Dictionary<int, IParticipant> _rankingCache;
 		private Dictionary<int, IParticipant> _finalRanking;
-		private const int SECTION_LENGTH = 100;
+		private const int SECTION_LENGTH = 239;
+		private const int INNER_CORNER_LENGTH = 75;
 		private Dictionary<IParticipant, bool> _finished;
 		private Dictionary<IParticipant, int> _completedLaps;
 
 		private Dictionary<IParticipant, TimeSpan> _currentTimeOnSection;
+
+		[System.Runtime.InteropServices.DllImport("kernel32.dll")]
+		static extern IntPtr GetConsoleWindow();
 
 		public event EventHandler DriversChanged;
 		public event EventHandler RaceFinished;
@@ -86,17 +87,17 @@ namespace Controller {
 
 		private void RandomiseEquipment() {
 			Participants.ForEach(_participant => {
-				_participant.Equipment.Speed = random.Next(5, 10);
-				_participant.Equipment.Performance = random.Next(4, 10);
+				_participant.Equipment.Speed = random.Next(7, 13);
+				_participant.Equipment.Performance = random.Next(6, 13);
 				_participant.Equipment.Quality = random.Next(74, 100) + 1;
 			});
 		}
 
 		private void HasEquipmentFailed() {
-			byte chance = 2;
+			byte chance = 5;
 			foreach (IParticipant participant in Participants) {
 				if (participant.Equipment.IsBroken) continue;
-				if (random.Next(0, 100) < chance) {
+				if (random.Next(0, 1000) < chance) {
 					participant.Equipment.IsBroken = true;
 					Data.Competition.AddParticipantBrokenDown(participant, 1);
 
@@ -135,14 +136,17 @@ namespace Controller {
 				if (data == null)
 					continue;
 				float velocity = (_ranking[i].Equipment.Performance * _ranking[i].Equipment.Speed) *
-					((_ranking[i].Equipment.Quality * (float)Math.Sqrt(_ranking[i].Equipment.Quality) / 1000f)) + 5f;
+					((_ranking[i].Equipment.Quality * (float)Math.Sqrt(_ranking[i].Equipment.Quality) / 1000f)) + 10f;
+				var section = GetSectionBySectionData(data);
+				bool isCorner = section.SectionType == SectionTypes.LeftCorner || section.SectionType == SectionTypes.RightCorner;
 
 				//Visual: https://www.wolframalpha.com/input/?i=%289*9%29*%28%28x+*+sqrt%28x%29%29%2F1000%29%2B5+from+x%3D0+to+100
 
 				if (data.Left == _ranking[i]) {
 					data.DistanceLeft += (int)Math.Ceiling(velocity);
-					if (data.DistanceLeft >= SECTION_LENGTH) {
-						var section = GetSectionBySectionData(data);
+					bool isInInnerCorner = section.SectionType == SectionTypes.LeftCorner;
+					int outerCornerLength = isCorner && !isInInnerCorner ? 80 : 0;
+					if (data.DistanceLeft >= (SECTION_LENGTH - outerCornerLength) || (isInInnerCorner && data.DistanceLeft >= INNER_CORNER_LENGTH)) {
 						if (section.SectionType == SectionTypes.Finish && !_finished[_ranking[i]]) {
 							//Participant has completed a lap
 							CompleteLap(_ranking[i]);
@@ -156,11 +160,13 @@ namespace Controller {
 						}
 
 						var nextSection = GetNextSection(section);
-						if (_positions[nextSection].Left == null)
+						if (_positions[nextSection].Left == null) {
 							_positions[nextSection].Left = _ranking[i];
-						else if (_positions[nextSection].Right == null)
+							_positions[nextSection].DistanceLeft = 0;
+						} else if (_positions[nextSection].Right == null) {
 							_positions[nextSection].Right = _ranking[i];
-						else
+							_positions[nextSection].DistanceRight = 0;
+						} else
 							continue;
 						data.Left = null;
 						driversChanged = true;
@@ -173,8 +179,9 @@ namespace Controller {
                     }
 				} else {
 					data.DistanceRight += (int)Math.Ceiling(velocity);
-					if (data.DistanceRight >= SECTION_LENGTH) {
-						var section = GetSectionBySectionData(data);
+					bool isInInnerCorner = section.SectionType == SectionTypes.RightCorner;
+					int outerCornerLength = isCorner && !isInInnerCorner ? 80 : 0;
+					if (data.DistanceRight >= (SECTION_LENGTH - outerCornerLength) || (isInInnerCorner && data.DistanceRight >= INNER_CORNER_LENGTH)) {
 						if (section.SectionType == SectionTypes.Finish && !_finished[_ranking[i]]) {
 							//Participant has completed a lap
 							CompleteLap(_ranking[i]);
@@ -188,11 +195,13 @@ namespace Controller {
 						}
 
 						var nextSection = GetNextSection(section);
-						if (_positions[nextSection].Right == null)
+						if (_positions[nextSection].Right == null) {
 							_positions[nextSection].Right = _ranking[i];
-						else if (_positions[nextSection].Left == null)
+							_positions[nextSection].DistanceRight = 0;
+						} else if (_positions[nextSection].Left == null) {
 							_positions[nextSection].Left = _ranking[i];
-						else
+							_positions[nextSection].DistanceLeft = 0;
+						} else
 							continue;
 						data.Right = null;
 						driversChanged = true;
@@ -210,6 +219,8 @@ namespace Controller {
 				RaceFinished?.Invoke(this, new EventArgs());
 			}
 
+			if (GetConsoleWindow() == IntPtr.Zero)
+				DriversChanged?.Invoke(this, new DriversChangedEventArgs() { Track = Track });
 			if (driversChanged) {
 				_rankingCache = new Dictionary<int, IParticipant>(_ranking);
 				DetermineRanking();

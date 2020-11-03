@@ -17,6 +17,7 @@
     <None Remove="Resources\Racetrack_Car_Red_BrokenDown.png" />
     <None Remove="Resources\Racetrack_Car_Yellow.png" />
     <None Remove="Resources\Racetrack_Car_Yellow_BrokenDown.png" />
+    <None Remove="Resources\Racetrack_Corner.png" />
     <None Remove="Resources\Racetrack_Corner_NE.png" />
     <None Remove="Resources\Racetrack_Corner_NW.png" />
     <None Remove="Resources\Racetrack_Corner_SE.png" />
@@ -27,27 +28,57 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Racetrack_Car_Blue.png" />
-    <Content Include="Resources\Racetrack_Car_Blue_BrokenDown.png" />
-    <Content Include="Resources\Racetrack_Car_Green.png" />
-    <Content Include="Resources\Racetrack_Car_Green_BrokenDown.png" />
-    <Content Include="Resources\Racetrack_Car_Grey.png" />
-    <Content Include="Resources\Racetrack_Car_Grey_BrokenDown.png" />
-    <Content Include="Resources\Racetrack_Car_Red.png" />
-    <Content Include="Resources\Racetrack_Car_Red_BrokenDown.png" />
-    <Content Include="Resources\Racetrack_Car_Yellow.png" />
-    <Content Include="Resources\Racetrack_Car_Yellow_BrokenDown.png" />
-    <Content Include="Resources\Racetrack_Corner_NE.png" />
-    <Content Include="Resources\Racetrack_Corner_NW.png" />
-    <Content Include="Resources\Racetrack_Corner_SE.png" />
-    <Content Include="Resources\Racetrack_Corner_SW.png" />
-    <Content Include="Resources\Racetrack_Finish.png" />
-    <Content Include="Resources\Racetrack_Start.png" />
-    <Content Include="Resources\Racetrack_Straight.png" />
+    <Content Include="Resources\Racetrack_Car_Blue.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Racetrack_Car_Blue_BrokenDown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Racetrack_Car_Green.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Racetrack_Car_Green_BrokenDown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Racetrack_Car_Grey.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Racetrack_Car_Grey_BrokenDown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Racetrack_Car_Red.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Racetrack_Car_Red_BrokenDown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Racetrack_Car_Yellow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Racetrack_Car_Yellow_BrokenDown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Racetrack_Corner.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Racetrack_Finish.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Racetrack_Start.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Racetrack_Straight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Controller\Controller.csproj" />
+    <ProjectReference Include="..\Model\Model.csproj" />
   </ItemGroup>
 
 </Project>
