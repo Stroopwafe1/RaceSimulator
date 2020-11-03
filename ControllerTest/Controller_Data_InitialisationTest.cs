@@ -24,7 +24,7 @@ namespace ControllerTest {
 		public void Initialise_Competition_ParticipantsAdded() {
 			Competition competition = new Competition();
 			Data.Initialise(competition);
-			Assert.AreEqual(6, Data.Competition.Participants.Count);
+			Assert.AreEqual(5, Data.Competition.Participants.Count);
 		}
 
 		[Test]
