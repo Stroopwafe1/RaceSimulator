@@ -6,7 +6,20 @@
         xmlns:local="clr-namespace:RaceSimulatorGUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="750" Width="1500">
+    <Window.DataContext>
+        <local:MainWindowDataContext/>
+    </Window.DataContext>
     <Grid Background="#FF2E2E2E">
-        <Image x:Name="TrackImage" Margin="400,0,0,0"/>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top" Background="Gray">
+                <MenuItem Header="_Menu">
+                    <MenuItem x:Name="MenuItemShowRaceStats" Header="Show _Race Stats..." Click="MenuItem_ShowRaceStats_Click"/>
+                    <MenuItem x:Name="MenuItemShowCompetitionStats" Header="Show _Competition Stats..." Click="MenuItem_ShowCompetitionStats_Click"/>
+                    <MenuItem x:Name="MenuItemExit" Header="_Exit" Click="MenuItem_Exit_Click"/>
+                </MenuItem>
+            </Menu>
+            <Label x:Name="LblTrackName" Content="{Binding TrackName, Mode=OneWay}" Width="175" DockPanel.Dock="Left"/>
+            <Image x:Name="TrackImage" Margin="0,0,0,0"/>
+        </DockPanel>
     </Grid>
 </Window>

@@ -22,14 +22,21 @@ namespace RaceSimulatorGUI {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
+
+        private RaceStats _raceStats;
+        private CompetitionStats _competitionStats;
+        private MainWindowDataContext _dataContext;
+
         public MainWindow() {
-            InitializeComponent();
             Data.Initialise(new Competition());
             Race.RaceStarted += OnRaceStarted;
             Data.NextRace();
             Visualiser.Initialise();
 
             Data.CurrentRace.DriversChanged += OnDriversChanged;
+            _dataContext = new MainWindowDataContext();
+
+            InitializeComponent();
         }
 
         public void OnDriversChanged(object sender, EventArgs e) {
@@ -48,6 +55,20 @@ namespace RaceSimulatorGUI {
                 this.TrackImage.Source = null;
                 this.TrackImage.Source = Visualiser.DrawTrack(e1.Race.Track);
             }));
+        }
+
+        private void MenuItem_Exit_Click(object sender, RoutedEventArgs e) {
+            Application.Current.Shutdown();
+        }
+
+        private void MenuItem_ShowCompetitionStats_Click(object sender, RoutedEventArgs e) {
+            _competitionStats = new CompetitionStats();
+            _competitionStats.Show();
+        }
+
+        private void MenuItem_ShowRaceStats_Click(object sender, RoutedEventArgs e) {
+            _raceStats = new RaceStats();
+            _raceStats.Show();
         }
     }
 }
