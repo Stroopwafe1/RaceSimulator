@@ -13,7 +13,7 @@ namespace RaceSimulatorGUI {
     public static class Visualiser {
 
         private const int compass = 1;
-        private static List<GridSquare> GridSquares;
+        private static List<GridSquare> _gridSquares;
         private static Track _trackCache;
         private static Bitmap _currTrackBitmap;
 
@@ -35,8 +35,16 @@ namespace RaceSimulatorGUI {
         #endregion
 
         public static void Initialise() {
-            GridSquares = new List<GridSquare>();
+            _gridSquares = new List<GridSquare>();
             ImageLoader.Initialise();
+        }
+
+        /// <summary>
+        /// This is just for testing purposes
+        /// </summary>
+        /// <returns></returns>
+        public static List<GridSquare> GetGridSquares() {
+            return _gridSquares;
         }
 
         public static BitmapSource DrawTrack(Track track) {
@@ -46,7 +54,7 @@ namespace RaceSimulatorGUI {
         }
 
         private static GridSquare GetGridSquare(int x, int y) {
-            GridSquare square = GridSquares.Find(_square => _square.X == x && _square.Y == y);
+            GridSquare square = _gridSquares.Find(_square => _square.X == x && _square.Y == y);
             return square;
         }
 
@@ -100,8 +108,8 @@ namespace RaceSimulatorGUI {
             return carCorrectOrientation;
         }
         private static Bitmap DrawParticipants(Bitmap trackBitmap) {
-            int maxX = GridSquares.Max(_square => _square.X);
-            int maxY = GridSquares.Max(_square => _square.Y);
+            int maxX = _gridSquares.Max(_square => _square.X);
+            int maxY = _gridSquares.Max(_square => _square.Y);
             Bitmap driverBitmap = new Bitmap(trackBitmap);
             Graphics graphics = Graphics.FromImage(driverBitmap);
             for (int y = 0; y <= maxY; y++) {
@@ -215,9 +223,9 @@ namespace RaceSimulatorGUI {
             _trackCache = track;
             CalculateGrid(track.Sections);
             MoveGrid(Math.Abs(GridSquare.LowestX), Math.Abs(GridSquare.LowestY));
-            GridSquares = GridSquares.OrderBy(_square => _square.Y).ToList();
-            int maxX = GridSquares.Max(_square => _square.X);
-            int maxY = GridSquares.Max(_square => _square.Y);
+            _gridSquares = _gridSquares.OrderBy(_square => _square.Y).ToList();
+            int maxX = _gridSquares.Max(_square => _square.X);
+            int maxY = _gridSquares.Max(_square => _square.Y);
             Bitmap background = ImageLoader.CreateEmptyBitmap(239 * maxX + 239, 239 * maxY + 239);
             Bitmap empty = ImageLoader.CreateEmptyBitmap(239, 239);
             Graphics graphics = Graphics.FromImage(background);
@@ -266,7 +274,7 @@ namespace RaceSimulatorGUI {
             Race race = Data.CurrentRace;
             int comp = compass;
             int x = 0, y = 0;
-            GridSquares?.Clear();
+            _gridSquares?.Clear();
             GridSquare.LowestX = 0;
             GridSquare.LowestY = 0;
             foreach (Section section in sections) {
@@ -274,23 +282,23 @@ namespace RaceSimulatorGUI {
                 SectionData data = race.GetSectionData(section);
                 switch (type) {
                     case SectionTypes.StartGrid:
-                        GridSquares.Add(new GridSquare(x, y, _start, data, comp));
+                        _gridSquares.Add(new GridSquare(x, y, _start, data, comp));
                         break;
                     case SectionTypes.Straight:
-                        GridSquares.Add(new GridSquare(x, y, _straight, data, comp));
+                        _gridSquares.Add(new GridSquare(x, y, _straight, data, comp));
                         break;
                     case SectionTypes.LeftCorner:
-                        GridSquares.Add(new GridSquare(x, y, _corner, data, comp, true));
+                        _gridSquares.Add(new GridSquare(x, y, _corner, data, comp, true));
                         comp = (comp - 1) % 4;
                         if (comp < 0)
                             comp = 3;
                         break;
                     case SectionTypes.RightCorner:
-                        GridSquares.Add(new GridSquare(x, y, _corner, data, comp));
+                        _gridSquares.Add(new GridSquare(x, y, _corner, data, comp));
                         comp = (comp + 1) % 4;
                         break;
                     case SectionTypes.Finish:
-                        GridSquares.Add(new GridSquare(x, y, _finish, data, comp));
+                        _gridSquares.Add(new GridSquare(x, y, _finish, data, comp));
                         break;
                 }
                 if (comp == 0) {
@@ -306,7 +314,7 @@ namespace RaceSimulatorGUI {
         }
 
         private static void MoveGrid(int x, int y) {
-            foreach (GridSquare square in GridSquares) {
+            foreach (GridSquare square in _gridSquares) {
                 square.X += x;
                 square.Y += y;
             }

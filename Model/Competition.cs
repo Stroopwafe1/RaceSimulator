@@ -11,6 +11,7 @@ namespace Model {
 		public Queue<Track> Tracks { get; set; }
 		public RaceData<ParticipantPoints> ParticipantPoints { get; set; }
 		public RaceData<ParticipantTime> ParticipantTime { get; set; }
+		public RaceData<ParticipantSectionTime> ParticipantSectionTime { get; set; }
 		public RaceData<ParticipantsOvertaken> ParticipantsOvertaken { get; set; }
 		public RaceData<ParticipantTimesBrokenDown> ParticpantTimesBrokenDown { get; set; }
 
@@ -25,6 +26,7 @@ namespace Model {
 			Tracks = new Queue<Track>();
 			ParticipantPoints = new RaceData<ParticipantPoints>();
 			ParticipantTime = new RaceData<ParticipantTime>();
+			ParticipantSectionTime = new RaceData<ParticipantSectionTime>();
 			ParticipantsOvertaken = new RaceData<ParticipantsOvertaken>();
 			ParticpantTimesBrokenDown = new RaceData<ParticipantTimesBrokenDown>();
 		}
@@ -53,13 +55,17 @@ namespace Model {
 				}
 				IParticipant participant = Participants.First(p => p.Name == finalRanking[i].Name);
 				participant.Points += points;
-				ParticipantPoints.AddToList(new ParticipantPoints() { Name = finalRanking[i].Name, Points = points });
+				ParticipantPoints.AddToList(new ParticipantPoints() { Name = finalRanking[i].Name, Points = points, Participant = participant });
 				Debug.WriteLine($"{points} added to Participant {finalRanking[i].Name}, they now have {participant.Points}");
             }
         }
 
 		public void AddSectionTime(IParticipant participant, TimeSpan time, Section section) {
-			ParticipantTime.AddToList(new ParticipantSectionTime() { Name = participant.Name, Section = section, Time = time, Participant = participant });
+			ParticipantSectionTime.AddToList(new ParticipantSectionTime() { Name = participant.Name, Section = section, Time = time, Participant = participant });
+        }
+
+		public void AddLapTime(IParticipant participant, Track track, TimeSpan time) {
+			ParticipantTime.AddToList(new ParticipantTime() { Name = participant.Name, Track = track, Participant = participant, Time = time });
         }
 
 		public void AddParticipantOvertaken(IParticipant overtaker, IParticipant overtaken) {
@@ -71,5 +77,11 @@ namespace Model {
 		public void AddParticipantBrokenDown(IParticipant participant, int count) {
 			ParticpantTimesBrokenDown.AddToList(new ParticipantTimesBrokenDown() { Name = participant.Name, Count = count, Participant = participant });
         }
+
+		public void ClearRaceData() {
+			ParticipantTime?.ClearList();
+			ParticipantSectionTime?.ClearList();
+			ParticipantsOvertaken?.ClearList();
+		}
 	}
 }

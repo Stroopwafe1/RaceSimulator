@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <AssemblyName>Tests</AssemblyName>
+
+    <RootNamespace>Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Controller\Controller.csproj" />
     <ProjectReference Include="..\RaceSimulatorConsole\RaceSimulatorConsole.csproj" />
+    <ProjectReference Include="..\RaceSimulatorGUI\RaceSimulatorGUI.csproj" />
   </ItemGroup>
 
 </Project>

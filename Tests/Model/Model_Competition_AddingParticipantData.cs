@@ -35,6 +35,16 @@ namespace ControllerTest {
 			_competition.AddSectionTime(_competition.Participants[0], TimeSpan.FromSeconds(450), s);
 			_competition.AddSectionTime(_competition.Participants[1], TimeSpan.FromSeconds(750), s);
 			var expected = _competition.Participants[0].Name;
+			var actual = _competition.ParticipantSectionTime.GetBestParticipant();
+			Assert.AreEqual(expected, actual);
+		}
+
+		[Test]
+		public void AddLapTime() {
+			Track t = new Track("test", new[] { SectionTypes.StartGrid, SectionTypes.Finish });
+			_competition.AddLapTime(_competition.Participants[0], t, TimeSpan.FromSeconds(450));
+			_competition.AddLapTime(_competition.Participants[1], t, TimeSpan.FromSeconds(750));
+			var expected = _competition.Participants[0].Name;
 			var actual = _competition.ParticipantTime.GetBestParticipant();
 			Assert.AreEqual(expected, actual);
 		}

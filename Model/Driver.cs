@@ -11,5 +11,15 @@ namespace Model {
 			Name = name;
 			Equipment = equipment;
 		}
+
+		public override bool Equals(object obj) {
+			if (!(obj is Driver)) return false;
+			Driver d = (Driver) obj;
+			return d.Name == Name;
+		}
+
+		public override string ToString() {
+			return $"Driver {Name}";
+		}
 	}
 }

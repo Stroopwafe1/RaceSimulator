@@ -44,6 +44,8 @@ namespace Controller {
 			CurrentRace?.DisposeEventHandler();
 			Track nextTrack = Competition.NextTrack();
 			if(nextTrack != null) {
+				PutParticipantsInOrderOfFinish();
+				Competition.ClearRaceData();
 				CurrentRace = new Race(nextTrack, Competition.Participants);
 				CurrentRace.RaceFinished += OnRaceFinished;
 			} else {
@@ -53,7 +55,16 @@ namespace Controller {
 			}
 		}
 
-		private static void OnRaceFinished(object sender, EventArgs e) {
+		public static void PutParticipantsInOrderOfFinish() {
+			if (CurrentRace == null) return;
+			Competition.Participants.Clear();
+			Dictionary<int, IParticipant> finalRanking = CurrentRace.GetFinalRanking();
+			for(int i = 1; i <= finalRanking.Count; i++) {
+				Competition.Participants.Add(finalRanking[i]);
+            }
+        }
+
+		public static void OnRaceFinished(object sender, EventArgs e) {
 			Competition.AddPoints(CurrentRace.GetFinalRanking());
 			NextRace();
 		}

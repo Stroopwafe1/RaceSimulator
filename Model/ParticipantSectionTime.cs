@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -10,12 +11,12 @@ namespace Model {
 
         public override void Add(List<IParticipantData> participantData) {
             var sectionTimeData = participantData.Cast<ParticipantSectionTime>();
-            var participant = sectionTimeData.FirstOrDefault(data => data.Participant.Name == this.Name);
+            var participant = sectionTimeData.FirstOrDefault(data => data.Participant.Name == Name && data.Section == Section);
             if (participant == null) {
                 participantData.Add(this);
                 return;
             }
-            participant.Time += this.Time;
+            participant.Time = Time;
         }
     }
 }
