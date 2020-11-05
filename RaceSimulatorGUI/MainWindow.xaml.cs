@@ -51,7 +51,7 @@ namespace RaceSimulatorGUI {
             RaceStartedEventArgs e1 = (RaceStartedEventArgs)e;
             e1.Race.DriversChanged += OnDriversChanged;
             ImageLoader.ClearCache();
-            this.TrackImage.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() => {
+            this.TrackImage?.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() => {
                 this.TrackImage.Source = null;
                 this.TrackImage.Source = Visualiser.DrawTrack(e1.Race.Track);
             }));

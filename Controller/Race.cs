@@ -10,7 +10,7 @@ namespace Controller {
 		public Track Track { get; set; }
 		public List<IParticipant> Participants { get; set; }
 		public DateTime StartTime { get; set; }
-		private Random random;
+		private Random Random;
 		private Dictionary<Section, SectionData> _positions;
 		private Timer _timer;
 		private Dictionary<int, IParticipant> _ranking;
@@ -22,6 +22,8 @@ namespace Controller {
 		private Dictionary<IParticipant, int> _completedLaps;
 
 		private Dictionary<IParticipant, TimeSpan> _currentTimeOnSection;
+		private Dictionary<IParticipant, DateTime> _sectionTimeCache;
+		private Dictionary<IParticipant, DateTime> _lapTimeCache;
 
 		[System.Runtime.InteropServices.DllImport("kernel32.dll")]
 		static extern IntPtr GetConsoleWindow();
@@ -41,7 +43,7 @@ namespace Controller {
 		public Race(Track track, List<IParticipant> participants) {
 			Track = track;
 			Participants = participants;
-			random = new Random(DateTime.Now.Millisecond);
+			Random = new Random(DateTime.Now.Millisecond);
 			_positions = new Dictionary<Section, SectionData>();
 			_ranking = new Dictionary<int, IParticipant>();
 			_rankingCache = new Dictionary<int, IParticipant>();
@@ -49,6 +51,8 @@ namespace Controller {
 			_finished = new Dictionary<IParticipant, bool>();
 			_completedLaps = new Dictionary<IParticipant, int>();
 			_currentTimeOnSection = new Dictionary<IParticipant, TimeSpan>();
+			_sectionTimeCache = new Dictionary<IParticipant, DateTime>();
+			_lapTimeCache = new Dictionary<IParticipant, DateTime>();
 			_timer = new Timer(500);
 			_timer.Elapsed += OnTimedEvent;
 			InitialiseSectionData();
@@ -60,16 +64,18 @@ namespace Controller {
 		}
 
 		private void OnTimedEvent(object sender, ElapsedEventArgs e) {
-			MoveParticipants();
+			MoveParticipants(e.SignalTime);
 			HasEquipmentFailed();
 			RepairEquipment();
 		}
 
 		private void FillDictionaries() {
-			foreach(IParticipant participant in Participants) {
-				_currentTimeOnSection.Add(participant, DateTime.Now.TimeOfDay);
-            }
-        }
+			foreach (IParticipant participant in Participants) {
+				_sectionTimeCache.Add(participant, DateTime.Now);
+				_currentTimeOnSection.Add(participant, TimeSpan.Zero);
+				_lapTimeCache.Add(participant, DateTime.Now);
+			}
+		}
 
 		private void Start() {
 			RaceStarted?.Invoke(this, new RaceStartedEventArgs() { Race = this });
@@ -87,9 +93,9 @@ namespace Controller {
 
 		private void RandomiseEquipment() {
 			Participants.ForEach(_participant => {
-				_participant.Equipment.Speed = random.Next(7, 13);
-				_participant.Equipment.Performance = random.Next(6, 13);
-				_participant.Equipment.Quality = random.Next(74, 100) + 1;
+				_participant.Equipment.Speed = Random.Next(7, 13);
+				_participant.Equipment.Performance = Random.Next(6, 13);
+				_participant.Equipment.Quality = Random.Next(74, 100) + 1;
 			});
 		}
 
@@ -97,7 +103,7 @@ namespace Controller {
 			byte chance = 5;
 			foreach (IParticipant participant in Participants) {
 				if (participant.Equipment.IsBroken) continue;
-				if (random.Next(0, 1000) < chance) {
+				if (Random.Next(0, 1000) < chance) {
 					participant.Equipment.IsBroken = true;
 					Data.Competition.AddParticipantBrokenDown(participant, 1);
 
@@ -113,22 +119,86 @@ namespace Controller {
 			byte chance = 20;
 			foreach (IParticipant participant in Participants) {
 				if (!participant.Equipment.IsBroken) continue;
-				participant.Equipment.IsBroken = !(random.Next(0, 100) < chance);
+				participant.Equipment.IsBroken = !(Random.Next(0, 100) < chance);
 			}
 		}
 
-		private void CompleteLap(IParticipant participant) {
+		private void CompleteLap(IParticipant participant, DateTime time) {
 			if (!_completedLaps.ContainsKey(participant)) {
 				_completedLaps.Add(participant, 0);
+			} else {
+				AddLapTimeToParticipant(participant, time);
+				ResetLapTime(participant, time);
 			}
 			_completedLaps[participant]++;
+		}
+
+		public int GetRankingOfParticipant(IParticipant participant) {
+			return _ranking.FirstOrDefault(p => p.Value.Name == participant.Name).Key;
 		}
 
 		public Dictionary<int, IParticipant> GetFinalRanking() {
 			return _finalRanking;
 		}
 
-		private void MoveParticipants() {
+		/// <summary>
+		/// This is only used for testing purposes
+		/// </summary>
+		public void SetFinalRanking(Dictionary<int, IParticipant> finalRanking) {
+			_finalRanking = finalRanking;
+		}
+
+		public bool MoveParticipant(IParticipant participant, SectionData data, float velocity, bool isLeft, bool isInInnerCorner, Section section, DateTime time) {
+			bool isCorner = section.SectionType == SectionTypes.LeftCorner || section.SectionType == SectionTypes.RightCorner;
+			int distance = isLeft ? data.DistanceLeft : data.DistanceRight;
+			distance += (int)Math.Ceiling(velocity);
+			if (isLeft)
+				data.DistanceLeft = distance;
+			else
+				data.DistanceRight = distance;
+			int outerCornerLength = isCorner && !isInInnerCorner ? 80 : 0;
+			if (distance >= (SECTION_LENGTH - outerCornerLength) || (isInInnerCorner && distance >= INNER_CORNER_LENGTH)) {
+				if (section.SectionType == SectionTypes.Finish && !_finished[participant]) {
+					//Participant has completed a lap
+					CompleteLap(participant, time);
+					_finished[participant] = true;
+					if (_completedLaps[participant] > 2) {
+						_finalRanking.Add(_finalRanking.Count + 1, participant);
+						if (isLeft)
+							data.Left = null;
+						else
+							data.Right = null;
+						return true;
+					}
+				}
+
+				var nextSection = GetNextSection(section);
+				if (_positions[nextSection].Left == null) {
+					_positions[nextSection].Left = participant;
+					_positions[nextSection].DistanceLeft = 0;
+				} else if (_positions[nextSection].Right == null) {
+					_positions[nextSection].Right = participant;
+					_positions[nextSection].DistanceRight = 0;
+				} else {
+					AddTimeToParticipant(participant, time);
+					return false;
+				}
+				if (isLeft)
+					data.Left = null;
+				else
+					data.Right = null;
+				SaveSectionTime(participant, section);
+				ResetTime(participant, time);
+				_finished[participant] = false;
+				return true;
+			} else {
+				//Driver still on the current section
+				AddTimeToParticipant(participant, time);
+				return false;
+			}
+		}
+
+		public void MoveParticipants(DateTime time) {
 			bool driversChanged = false;
 			for (int i = 1; i <= _ranking.Count; i++) {
 				if (_ranking[i].Equipment.IsBroken) continue;
@@ -138,94 +208,32 @@ namespace Controller {
 				float velocity = (_ranking[i].Equipment.Performance * _ranking[i].Equipment.Speed) *
 					((_ranking[i].Equipment.Quality * (float)Math.Sqrt(_ranking[i].Equipment.Quality) / 1000f)) + 10f;
 				var section = GetSectionBySectionData(data);
-				bool isCorner = section.SectionType == SectionTypes.LeftCorner || section.SectionType == SectionTypes.RightCorner;
 
 				//Visual: https://www.wolframalpha.com/input/?i=%289*9%29*%28%28x+*+sqrt%28x%29%29%2F1000%29%2B5+from+x%3D0+to+100
 
-				if (data.Left == _ranking[i]) {
-					data.DistanceLeft += (int)Math.Ceiling(velocity);
-					bool isInInnerCorner = section.SectionType == SectionTypes.LeftCorner;
-					int outerCornerLength = isCorner && !isInInnerCorner ? 80 : 0;
-					if (data.DistanceLeft >= (SECTION_LENGTH - outerCornerLength) || (isInInnerCorner && data.DistanceLeft >= INNER_CORNER_LENGTH)) {
-						if (section.SectionType == SectionTypes.Finish && !_finished[_ranking[i]]) {
-							//Participant has completed a lap
-							CompleteLap(_ranking[i]);
-							_finished[_ranking[i]] = true;
-							if (_completedLaps[_ranking[i]] > 2) {
-								_finalRanking.Add(_finalRanking.Count + 1, _ranking[i]);
-								data.Left = null;
-								driversChanged = true;
-								continue;
-							}
-						}
-
-						var nextSection = GetNextSection(section);
-						if (_positions[nextSection].Left == null) {
-							_positions[nextSection].Left = _ranking[i];
-							_positions[nextSection].DistanceLeft = 0;
-						} else if (_positions[nextSection].Right == null) {
-							_positions[nextSection].Right = _ranking[i];
-							_positions[nextSection].DistanceRight = 0;
-						} else
-							continue;
-						data.Left = null;
-						driversChanged = true;
-						SaveSectionTime(_ranking[i], section);
-						ResetTime(_ranking[i]);
-						_finished[_ranking[i]] = false;
-					} else {
-						//Driver still on the current section
-						AddTimeToParticipant(_ranking[i], DateTime.Now.TimeOfDay);
-                    }
-				} else {
-					data.DistanceRight += (int)Math.Ceiling(velocity);
-					bool isInInnerCorner = section.SectionType == SectionTypes.RightCorner;
-					int outerCornerLength = isCorner && !isInInnerCorner ? 80 : 0;
-					if (data.DistanceRight >= (SECTION_LENGTH - outerCornerLength) || (isInInnerCorner && data.DistanceRight >= INNER_CORNER_LENGTH)) {
-						if (section.SectionType == SectionTypes.Finish && !_finished[_ranking[i]]) {
-							//Participant has completed a lap
-							CompleteLap(_ranking[i]);
-							_finished[_ranking[i]] = true;
-							if (_completedLaps[_ranking[i]] > 2) {
-								_finalRanking.Add(_finalRanking.Count + 1, _ranking[i]);
-								data.Right = null;
-								driversChanged = true;
-								continue;
-							}
-						}
-
-						var nextSection = GetNextSection(section);
-						if (_positions[nextSection].Right == null) {
-							_positions[nextSection].Right = _ranking[i];
-							_positions[nextSection].DistanceRight = 0;
-						} else if (_positions[nextSection].Left == null) {
-							_positions[nextSection].Left = _ranking[i];
-							_positions[nextSection].DistanceLeft = 0;
-						} else
-							continue;
-						data.Right = null;
-						driversChanged = true;
-						SaveSectionTime(_ranking[i], section);
-						ResetTime(_ranking[i]);
-						_finished[_ranking[i]] = false;
-					} else {
-						//Participant still on the section
-						AddTimeToParticipant(_ranking[i], DateTime.Now.TimeOfDay);
-                    }
-				}
+				bool isLeft = data.Left == _ranking[i];
+				bool driversChangedTemp = MoveParticipant(_ranking[i], data, velocity, isLeft,
+					isLeft && section.SectionType == SectionTypes.LeftCorner, section, time);
+				driversChanged = driversChangedTemp || driversChanged;
 			}
 
 			if (AllPlayersFinished()) {
 				RaceFinished?.Invoke(this, new EventArgs());
 			}
 
-			if (GetConsoleWindow() == IntPtr.Zero)
-				DriversChanged?.Invoke(this, new DriversChangedEventArgs() { Track = Track });
 			if (driversChanged) {
 				_rankingCache = new Dictionary<int, IParticipant>(_ranking);
 				DetermineRanking();
+				if(GetConsoleWindow() != IntPtr.Zero)
+					DriversChanged?.Invoke(this, new DriversChangedEventArgs() { Track = Track });
+			}
+			if (GetConsoleWindow() == IntPtr.Zero) {
 				DriversChanged?.Invoke(this, new DriversChangedEventArgs() { Track = Track });
 			}
+		}
+
+		public bool GetIsFinished(IParticipant participant) {
+			return _finished[participant];
 		}
 
 		public bool AllPlayersFinished() {
@@ -234,15 +242,26 @@ namespace Controller {
 
 		private void SaveSectionTime(IParticipant participant, Section section) {
 			Data.Competition.AddSectionTime(participant, _currentTimeOnSection[participant], section);
-        }
+		}
 
-		private void ResetTime(IParticipant participant) {
-			_currentTimeOnSection[participant] = DateTime.Now.TimeOfDay;
-        }
+		private void ResetTime(IParticipant participant, DateTime time) {
+			_sectionTimeCache[participant] = time;
+			_currentTimeOnSection[participant] = TimeSpan.Zero;
+		}
 
-		private void AddTimeToParticipant(IParticipant participant, TimeSpan time) {
-			_currentTimeOnSection[participant].Add(time);
-        }
+		private void ResetLapTime(IParticipant participant, DateTime time) {
+			_lapTimeCache[participant] = time;
+		}
+
+		private void AddTimeToParticipant(IParticipant participant, DateTime time) {
+			DateTime cache = _sectionTimeCache[participant];
+			_currentTimeOnSection[participant] = time - cache;
+		}
+
+		private void AddLapTimeToParticipant(IParticipant participant, DateTime time) {
+			DateTime cache = _lapTimeCache[participant];
+			Data.Competition.AddLapTime(participant, Track, time - cache);
+		}
 
 		private void InitialiseSectionData() {
 			foreach (Section section in Track.Sections) {
@@ -267,13 +286,11 @@ namespace Controller {
 		}
 
 		public Section GetNextSection(Section section) {
-			Section returnValue = Track.Sections.Find(section)?.Next?.Value;
-			if (returnValue == null)
-				returnValue = Track.Sections.First.Value;
+			Section returnValue = Track.Sections.Find(section)?.Next?.Value ?? Track.Sections.First.Value;
 			return returnValue;
 		}
 
-		private void DetermineRanking() {
+		public void DetermineRanking() {
 			_ranking.Clear();
 			int pos = 1;
 			for (var sectionNode = Track.Sections.Last; sectionNode != null; sectionNode = sectionNode.Previous) {
@@ -295,18 +312,23 @@ namespace Controller {
 		}
 
 		private void DetermineOvertakers() {
-			for(int i = 1; i <= _ranking.Count; i++) {
+			for (int i = 1; i <= _ranking.Count; i++) {
+				if(!_rankingCache.ContainsKey(i)) continue;
 				if (_ranking[i] == _rankingCache[i]) continue;
 				int prevPosition = _rankingCache.FirstOrDefault(x => x.Value == _ranking[i]).Key;
 				//If the current position is lower than the previous, this player was overtaken... So we don't care about them for now
-				if (prevPosition > i) continue; 
+				if (prevPosition > i) continue;
 
 				//Previous position was lower than the current position, so this player has overtaken someone
 				//Expecting the difference between i and prevPosition to always be 1
 				//The overtaken driver should be _rankingCache[i]???
 				Data.Competition.AddParticipantOvertaken(_ranking[i], _rankingCache[i]);
-            }
-        }
+			}
+		}
+
+		public Dictionary<int, IParticipant> GetRanking() {
+			return _ranking;
+		}
 
 		public void PlaceParticipantsOnTrack() {
 			SortedDictionary<int, Section> helpDict = new SortedDictionary<int, Section>();

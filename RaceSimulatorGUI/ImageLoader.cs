@@ -15,10 +15,10 @@ namespace RaceSimulatorGUI {
         }
 
         public static Bitmap GetImageFromCache(string imageURL) {
-            if(_imageCache.TryGetValue(imageURL, out Bitmap image)) {
-                return image;
+            if(_imageCache.ContainsKey(imageURL)) {
+                return _imageCache[imageURL];
             }
-            image = new Bitmap(imageURL);
+            Bitmap image = new Bitmap(imageURL);
             _imageCache.Add(imageURL, image);
             return image;
         }
@@ -36,6 +36,14 @@ namespace RaceSimulatorGUI {
 
         public static void ClearCache() {
             _imageCache?.Clear();
+        }
+
+        /// <summary>
+        /// This is just for testing purposes
+        /// </summary>
+        /// <returns>Cache</returns>
+        public static Dictionary<string, Bitmap> GetCache() {
+            return _imageCache;
         }
 
         public static BitmapSource CreateBitmapSourceFromGdiBitmap(Bitmap bitmap) {

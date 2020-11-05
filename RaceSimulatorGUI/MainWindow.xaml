@@ -11,7 +11,7 @@
     </Window.DataContext>
     <Grid Background="#FF2E2E2E">
         <DockPanel>
-            <Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top" Background="Gray">
+            <Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top" Background="#FF464646">
                 <MenuItem Header="_Menu">
                     <MenuItem x:Name="MenuItemShowRaceStats" Header="Show _Race Stats..." Click="MenuItem_ShowRaceStats_Click"/>
                     <MenuItem x:Name="MenuItemShowCompetitionStats" Header="Show _Competition Stats..." Click="MenuItem_ShowCompetitionStats_Click"/>

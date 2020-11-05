@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Controller;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,8 +17,14 @@ namespace RaceSimulatorGUI {
     /// Interaction logic for CompetitionStats.xaml
     /// </summary>
     public partial class CompetitionStats : Window {
+
+        private CompetitionStatsWindowDataContext _competitionStatsContext = new CompetitionStatsWindowDataContext();
         public CompetitionStats() {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            _competitionStatsContext.UpdateList();
         }
     }
 }

@@ -15,8 +15,16 @@ namespace RaceSimulatorGUI {
     /// Interaction logic for RaceStats.xaml
     /// </summary>
     public partial class RaceStats : Window {
+
+        private RaceStatsWindowDataContext _dataContext;
         public RaceStats() {
+            _dataContext = new RaceStatsWindowDataContext();
             InitializeComponent();
+            Closed += RaceStats_Closed;
+        }
+
+        private void RaceStats_Closed(object sender, EventArgs e) {
+            _dataContext = null;
         }
     }
 }

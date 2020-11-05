@@ -6,7 +6,76 @@
         xmlns:local="clr-namespace:RaceSimulatorGUI"
         mc:Ignorable="d"
         Title="RaceStats" Height="450" Width="800">
-    <Grid>
-        
+    <Window.DataContext>
+        <local:RaceStatsWindowDataContext/>
+    </Window.DataContext>
+    <Grid Background="#FF2E2E2E">
+        <ListView Width="400" HorizontalAlignment="Left" ItemsSource="{Binding LapTimeDisplay}" Background="{x:Null}" Height="360" VerticalAlignment="Bottom">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Place" Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Place}" Foreground="{Binding Brush}" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Name" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" Foreground="{Binding Brush}" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Laptime" Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TimeSpan}" Foreground="{Binding Brush}" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView Width="400" HorizontalAlignment="Left" Margin="400,0,0,0" ItemsSource="{Binding RankingDisplay, Mode=OneWay}" Background="{x:Null}" Height="360" VerticalAlignment="Bottom">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Place" Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Place, Mode=OneWay}" Foreground="{Binding Brush, Mode=OneWay}" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Name" Width="175">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name, Mode=OneWay}" Foreground="{Binding Brush, Mode=OneWay}" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Finished" Width="125">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Finished, Mode=OneWay}" Foreground="{Binding Brush, Mode=OneWay}" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Separator HorizontalAlignment="Left" Margin="400,0,0,440"/>
+        <Label x:Name="LblBestOvertaker" Content="{Binding BestOvertaker, Mode=OneWay}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>

@@ -90,5 +90,15 @@ namespace ControllerTest {
 			var actual = _particpantTimesBrokenDown.GetBestParticipant();
 			Assert.AreEqual(expected, actual);
 		}
+
+		[Test]
+		public void GetParticipantData() {
+			_particpantTimesBrokenDown.AddToList(new ParticipantTimesBrokenDown() {Name = "Tester1", Count = 1, Participant = _participants[0]});
+			_particpantTimesBrokenDown.AddToList(new ParticipantTimesBrokenDown() {Name = "Tester2", Count = 2, Participant = _participants[1]});
+			_particpantTimesBrokenDown.AddToList(new ParticipantTimesBrokenDown() {Name = "Tester2", Count = 1, Participant = _participants[1]});
+			var expected = _participants[0].Name;
+			var actual = _particpantTimesBrokenDown.GetParticipantData(_participants[0]).Participant.Name;
+			Assert.AreEqual(expected, actual);
+		}
 	}
 }

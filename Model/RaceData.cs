@@ -20,9 +20,17 @@ namespace Model {
             return _list.Count;
         }
 
+        public IParticipantData GetParticipantData(IParticipant participant) {
+            return _list.FirstOrDefault(data => data.Participant.Name == participant.Name);
+        }
+
         public string GetBestParticipant() {
             if (_list.Count == 0) return "";
             return _list[0].GetBestParticipant(_list);
+        }
+
+        public void ClearList() {
+            _list.Clear();
         }
     }
 }
